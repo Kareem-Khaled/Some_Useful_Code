@@ -1,0 +1,32 @@
+// KnapSack
+
+int n,m;
+vector<pair<int,int>>v;
+int ns(int i,int c)
+{
+    if(i==n)
+        return 0;
+
+    int leave = ns(i+1,c);
+    if(c-v[i].second>=0)
+    {
+        return max(( v[i].first + ns(i+1,c-v[i].second) ),leave);
+    }
+    return leave;
+
+
+}
+
+int main()
+{
+    //    file();
+    fast();
+    cin>>n>>m;
+    v.resize(n);
+    for(int i=0; i<n; i++)
+    {
+        cin>>v[i].first>>v[i].second;
+    }
+    cout<<ns(0,m);
+
+}

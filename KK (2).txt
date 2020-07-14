@@ -1,0 +1,197 @@
+﻿/*
+██╗  ██╗   ██╗  ██╗██╗  ██╗ █████╗ ██╗     ███████╗██████╗
+██║ ██╔╝   ██║ ██╔╝██║  ██║██╔══██╗██║     ██╔════╝██╔══██╗
+█████╔╝    █████╔╝ ███████║███████║██║     █████╗  ██║  ██║
+██╔═██╗    ██╔═██╗ ██╔══██║██╔══██║██║     ██╔══╝  ██║  ██║
+██║  ██╗██╗██║  ██╗██║  ██║██║  ██║███████╗███████╗██████╔╝
+╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚══════╝╚═════╝
+*/
+#define _CRT_SECURE_NO_WARNINGS
+#include<bits/stdc++.h>
+#include<unordered_map>
+#define endl "\n"
+#define Ceil(x,y) ((x+y-1)/y)
+#define clr(arr, x) memset(arr, x, sizeof arr)
+#define ss cout<<endl;system("pause");
+#define all(v) v.begin(),v.end()
+#define allr(s) s.rbegin(),s.rend()
+#define rt(s) return cout<<s,0
+#define watch(x) cout<<(#x)<<" = "<<x<<endl
+#define sz(s)	(int)(s.size())
+const int oo = 0x3f3f3f3f, mod = 1e9 + 7;
+using namespace std;
+typedef long long ll;
+typedef long double ld;
+typedef unsigned long long ull;
+//x = xDegrees*3.14159265 / 180;
+//r.erase(remove(all(r), '&'), r.end());
+//ef1tn=(( (n / 2)*( (n / 2) + 1) / 2) * 2);
+//of1tn=(n * (n + 1) / 2 - 2 * ((n / 2) * (n / 2 + 1) / 2));
+double PI = acos(-1);
+int dx[] { 1, -1, 0, 0, 1, 1, -1, -1 };
+int dy[] { 0, 0, 1, -1, 1, -1, 1, -1 };
+ll OO = (1LL * oo*oo);
+void K_K()
+{
+#ifndef ONLINE_JUDGE
+	freopen("in.txt", "r", stdin);
+	freopen("out.txt", "w", stdout);
+#endif  !ONLINEJUDGE
+	ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
+}
+ll gcd(ll a, ll b) {
+	return b == 0 ? abs(a) : gcd(b, a % b);
+}
+ll lcm(ll a, ll b) {
+	return a / gcd(a, b) * b;
+}
+int id = 1;
+vector<vector<int>>gr,coms;
+vector<int>leafs, com, path;
+bool vis[100005];
+int cnt = 0;
+bool cycle = 0;
+bool inStack[1000];
+vector<pair<int, int>>backEdge;
+vector<int>top;
+void dfs(int node,int par){
+	vis[node] = 1;
+	//if (sz(gr[node]) == 1) // undirect if direct == 0
+	//leafs.push_back(node);
+	//com.push_back(node);
+	//path[node] = id;
+	inStack[node] = 1;
+	for (auto it : gr[node]){ // Cycle
+		if (!vis[it])
+			dfs(it, node);
+		else if (it != par&&par!=-1&&inStack[it]){
+			cycle = 1;
+			backEdge.push_back({ it, node });
+		}
+	}
+	top.push_back(node);
+	inStack[node] = 0;
+}
+	char arr[100][100];
+	int x, y;
+bool viss[1000][1000];
+vector<vector<pair<int, int>>>vv;
+vector<pair<int, int>>comv;
+bool valid(int i, int j){
+	return i >= 0 && i < x&&j >= 0 && j < y&&!viss[i][j] && arr[i][j] != 'X';
+}
+
+void flood(int i,int j){
+	if (!valid(i,j))
+		return;
+	viss[i][j] = 1;
+	comv.push_back({ i, j });
+	for (int k = 0; k < 4; k++){
+		if (!viss[i + dx[k]][j + dy[k]])
+		flood(i + dx[k], j + dy[k]);
+	}
+
+}
+int indeg[1000];
+
+int main(){
+	K_K();
+	int n, m;
+	cin >> n >> m;
+	gr.resize(n + 1);
+	path.resize(n + 1);
+	for (int i = 0; i < m; i++){
+		int u, v;
+		cin >> u >> v;
+		indeg[v]++;
+		gr[u].push_back(v);
+		//gr[v].push_back(u);
+	}
+	int path[100], pre[100];
+	pre[1] = -1;
+	queue<pair<int, int>>q;
+	for (int i = 1; i <= n; i++){
+		q.push({ i, 0 });
+		while (sz(q)){
+			int cur = q.front().first;
+			int level = q.front().second;
+			q.pop();
+			for (auto it : gr[cur]){
+				if (!vis[it]){
+					pre[it] = cur;
+					path[it] = level + 1;
+					q.push({ it, level + 1 });
+
+				}
+			}
+		}
+	}
+	int node;
+	cin >> node;
+	while (pre[node] != -1){
+		cout << node << " ";
+		node = pre[node];
+	}
+	cout << 1;
+	//for (int i = 1; i <= n; i++){
+	//	if (!vis[i]){
+	//		dfs(i,-1);
+	//	}
+	//} 
+	//if (cycle)
+	//	cout << "yes";
+	//else
+	//	cout << "no";
+	//cout << endl;
+	//for (auto it : backEdge)
+	//	cout << it.first << " " << it.second << endl;
+	//cout << sz(coms) << endl;
+	//for (auto it : coms){
+	//	for (auto itt:it)
+	//		cout << itt << " ";
+	//	cout << endl;
+	//}
+	//int q;
+	//cin >> q;
+	//while (q--){
+	//	int u, v;
+	//	cin >> u >> v;
+	//	if (path[u] == path[v])
+	//		cout << "yes";
+	//	else
+	//		cout << "no";
+	//}
+	//map<pair<int, int>, vector<pair<int, int>>>mp;
+	//for (int i = 0; i < x; i++){
+	//	for (int j = 0; j < y; j++){
+	//		for (int k = 0; k < 4; k++){
+	//			if (valid(i + dx[k], j + dy[k]))
+	//				mp[{i, j}].push_back({ i + dx[k], j + dy[k] });
+	//		}
+	//	}
+	//}
+	//cin >> x >> y;
+	//for (int i = 0; i < x; i++){
+	//	for (int j = 0; j < y; j++){
+	//		cin >> arr[i][j];
+	//	}
+	//}
+	//for (int i = 0; i < x; i++){
+	//	for (int j = 0; j < y; j++){
+	//		if (!viss[i][j]&&arr[i][j]!='X'){
+	//			comv.clear();
+	//			flood(i, j);
+	//			vv.push_back(comv);
+	//		}
+	//	}
+	//}
+	//int cnt = 1;
+	//for (auto it : vv){
+	//	cout << cnt++ << "  ";
+	//	for (auto itt : it){
+	//		cout <<"("<<itt.first<<":"<<itt.second<<")" << " ";
+	//	}
+	//	cout << endl;
+	//}
+
+}

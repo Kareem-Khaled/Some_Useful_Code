@@ -1,0 +1,45 @@
+// Graph
+
+	vector < vector<int>>gr(101);
+	bool ok = 0;
+	vector<bool>vis(101);
+void sol(int x, int y)
+{
+	for (int i = 0; i < gr[x].size(); i++)
+	{
+		int ch = gr[x][i];
+		if (!vis[ch])
+		{
+			vis[ch] = 1;
+			sol(ch, y);
+		}
+	     	if (ch == y)
+	    	{
+	                ok = 1;
+	                return;
+	    	}
+		
+	}
+}
+
+int main()
+{
+	K_K();
+	int n, m;
+	cin >> n >> m;
+	for (int i = 0; i < m; i++)
+	{
+		int u, v;
+		cin >> u >> v;
+		gr[u].push_back(v);
+		gr[v].push_back(u);
+	}
+	int x, y;
+	cin >> x >> y;
+	sol(x, y);
+	if (ok)
+		cout << "yes";
+	else
+		cout << "no";
+	//	ss;
+}

@@ -1,0 +1,5 @@
+	unordered_map <char, vector<int> > mp;
+	mp.insert(pair<char, vector<int> >('S', vector<int>()));
+	mp.insert(pair<char, vector<int> >('H', vector<int>()));
+	mp.insert(pair<char, vector<int> >('C', vector<int>()));
+	mp.insert(pair<char, vector<int> >('D', vector<int>()));

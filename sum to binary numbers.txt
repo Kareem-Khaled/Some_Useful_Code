@@ -1,0 +1,17 @@
+﻿procedure add(a, b: positive integers)
+carry := 0
+for j := 0 to n-1
+begin
+	d := (aj + bj + c)/2
+	sj := aj + bj + c – 2d
+	c := d
+end
+sn := c
+
+
+int i=n,c=0;
+while(i>=0){
+int d=(a[i]+b[i]+c)/2;
+s[i]=(a[i]+b[i]+c)-2d;
+c=d;
+}

@@ -1,0 +1,2 @@
+swap(c0[x], c0[y]);
+			swap(c[c0[x]],c[c0[y]]);

@@ -1,0 +1,1 @@
+﻿int h=hypot(x,y);          // h = sqrt(x2+y2)

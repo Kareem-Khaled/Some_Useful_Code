@@ -1,0 +1,19 @@
+	vector<pair<char, vector<int>>>v;
+	
+
+	for (int i = 1; i < 14; i++)
+		v.push_back(make_pair('S', vector<int>{i}));
+	for (int i = 1; i < 14; i++)
+		v.push_back(make_pair('H', vector<int>{i}));
+	for (int i = 1; i < 14; i++)
+		v.push_back(make_pair('C', vector<int>{i}));
+	for (int i = 1; i < 14; i++)
+		v.push_back(make_pair('D', vector<int>{i}));
+	for (auto it : v)
+	{
+		for (auto itt : it.second)
+		{
+			cout << it.first << " " << itt << endl;
+		}
+	}
+	

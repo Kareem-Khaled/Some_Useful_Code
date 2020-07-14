@@ -1,0 +1,6 @@
+git clone 'ssh link'
+//add files into the folder
+cd 'folder name'
+git add .
+git commit -m "add"
+git push

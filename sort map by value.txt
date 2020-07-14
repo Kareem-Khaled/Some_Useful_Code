@@ -1,0 +1,25 @@
+	string s;
+	int x;
+	char c;
+	map<string, int>mp;
+	for (int i = 0; i < 5; i++)
+	{
+		cin >> s;
+		mp[s] = 0;
+	}
+	for (int i = 0; i < 10; i++)
+	{
+		cin >> s >> c >> x;
+		if (c == '+')
+			mp[s] += x;
+		else
+			mp[s] -= x;
+	}
+	vector<pair<int, string> > v;
+	for (auto it : mp)
+		v.push_back({ it.second, it.first });
+	sort(allr(v));
+	for (auto it : v)
+		cout << it.second << " " << it.first << "\n";
+	//ss;
+}

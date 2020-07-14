@@ -1,0 +1,25 @@
+vector<int>Bfs(int s, vector<vector<int>>&adjlist)
+{
+	vector<int>mem(sz(adjlist), OO);
+	queue<int>q;
+	q.push(s);
+	mem[s] = 0;
+	int dep = 0, cur = s, szz;
+	for (; !q.empty(); ++dep, szz = sz(q))
+	{
+		while (szz--)
+		{
+			cur = q.front();
+			q.pop();
+			for (int i = 0; i < sz(adjlist[cur]); i++)
+			{
+				if (mem[adjlist[cur][i]] == OO)
+				{
+					q.push(adjlist[cur][i]);
+					mem[adjlist[cur][i]] = dep + 1;
+				}
+			}
+		}
+	}
+	return mem;
+}
